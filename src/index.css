@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+@layer base {
+  html {
+    font-family: 'Cairo', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    -webkit-tap-highlight-color: transparent;
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    font-family: 'Cairo', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #FFF9EF;
+  }
+
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+}
+
+@media print {
+  /* Hide UI elements during print */
+  header,
+  nav,
+  button,
+  .no-print,
+  .fixed,
+  .sticky {
+    display: none !important;
+  }
+
+  body, html {
+    background: #FFF9EF !important;
+    color: #1e293b !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  main {
+    padding: 10px !important;
+    margin: 0 auto !important;
+    max-width: 100% !important;
+  }
+
+  .certificate-print-frame {
+    box-shadow: none !important;
+    border: 4px solid #960112 !important;
+    page-break-inside: avoid !important;
+    background: #FFFDF9 !important;
+  }
+}

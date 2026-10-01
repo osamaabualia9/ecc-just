@@ -1,0 +1,6 @@
+{
+  "name": "حاسبة المعدل لجامعة العلوم والتكنولوجيا",
+  "description": "حاسبة المعدل لجامعة العلوم والتكنولوجيا - إشراف لجنة كلية الهندسة",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
