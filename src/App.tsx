@@ -8,18 +8,16 @@ import {
   Printer,
 } from 'lucide-react';
 import { Header, ActiveTab } from './components/Header';
-import { PreviousRecordCard } from './components/PreviousRecordCard';
 import { SemesterCoursesCard } from './components/SemesterCoursesCard';
+import { PreviousRecordCard } from './components/PreviousRecordCard';
 import { CertificateCard } from './components/CertificateCard';
 import { ResultModal } from './components/ResultModal';
-import { GradeScaleModal } from './components/GradeScaleModal';
-import { TargetGpaModal } from './components/TargetGpaModal';
 import { Course, FormErrors, CalculationResult } from './types';
 import { DEFAULT_COURSES } from './constants';
 import { validateInputs, calculateGpa } from './utils/calculator';
 import { EngineeringLogo } from './components/EngineeringLogo';
 
-const STORAGE_KEY = 'just_engineering_gpa_calc_v5';
+const STORAGE_KEY = 'just_engineering_gpa_calc_v7';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<ActiveTab>('calculator');
@@ -99,8 +97,6 @@ export default function App() {
   });
 
   const [showResultModal, setShowResultModal] = useState(false);
-  const [showGradeScaleModal, setShowGradeScaleModal] = useState(false);
-  const [showTargetModal, setShowTargetModal] = useState(false);
 
   // Sync to LocalStorage
   useEffect(() => {
@@ -240,7 +236,6 @@ export default function App() {
     }
   };
 
-  // Real Print Handler that works directly from anywhere
   const handlePrint = () => {
     let currentResult = result;
     if (!currentResult) {
@@ -252,7 +247,6 @@ export default function App() {
       return;
     }
 
-    // Trigger browser print
     setTimeout(() => {
       window.print();
     }, 100);
@@ -274,26 +268,23 @@ export default function App() {
   );
 
   return (
-    <div className="min-h-screen bg-[#FFF9EF] flex flex-col font-sans text-slate-800 relative selection:bg-[#960112] selection:text-white">
-      {/* Enhanced visible background watermark preserving original committee colors */}
+    <div className="min-h-screen bg-[#FFF9EF] flex flex-col font-sans text-[#960112] font-bold relative selection:bg-[#960112] selection:text-white">
+      {/* ======================================================== */}
+      {/* الشعار الموجود بالخلفية (BACKGROUND LOGO WATERMARK) */}
+      {/* مكان تعديل الموقع: غيّر translate-x (يمين/يسار) أو translate-y (فوق/تحت) */}
+      {/* لتعديل الشفافية: غيّر opacity-[0.38] */}
+      {/* لتعديل الحجم: غيّر w-[480px] h-[480px] */}
+      {/* ======================================================== */}
       <div className="fixed inset-0 flex items-center justify-center pointer-events-none select-none z-0 overflow-hidden no-print">
-        <div className="opacity-[0.16] w-[450px] h-[450px] sm:w-[620px] sm:h-[620px] max-w-[90vw] transition-opacity">
+        <div className="opacity-[0.38] w-[480px] h-[480px] sm:w-[640px] sm:h-[640px] max-w-[90vw] translate-x-3 sm:translate-x-12 drop-shadow-sm transition-transform">
           <EngineeringLogo className="w-full h-full" showText={true} />
         </div>
       </div>
 
-      {/* Sticky Header with Frosted Accents */}
+      {/* Sticky Header */}
       <Header
         activeTab={activeTab}
-        onChangeTab={(tab) => {
-          if (tab === 'gradeScale') {
-            setShowGradeScaleModal(true);
-          } else if (tab === 'targetPlanner') {
-            setShowTargetModal(true);
-          } else {
-            setActiveTab(tab);
-          }
-        }}
+        onChangeTab={(tab) => setActiveTab(tab)}
         hasResult={result !== null}
         onPrint={handlePrint}
       />
@@ -307,7 +298,7 @@ export default function App() {
               <button
                 type="button"
                 onClick={() => setActiveTab('calculator')}
-                className="flex items-center gap-1.5 text-xs font-bold text-[#960112] hover:underline cursor-pointer"
+                className="flex items-center gap-1.5 text-xs font-bold text-[#960112] hover:underline cursor-pointer font-bukra"
               >
                 <ArrowRight className="w-4 h-4" />
                 <span>العودة إلى حاسبة المساقات</span>
@@ -320,21 +311,21 @@ export default function App() {
                 onUpdateStudentName={handleUpdateStudentNameInCertificate}
               />
             ) : (
-              <div className="bg-white rounded-2xl p-7 text-center border border-[#eddcc4] shadow-xs space-y-3">
-                <div className="w-14 h-14 rounded-2xl bg-[#FFF9EF] p-2 flex items-center justify-center mx-auto border border-[#eddcc4]">
+              <div className="bg-white/45 backdrop-blur-md rounded-2xl p-7 text-center border border-[#eddcc4]/80 shadow-xs space-y-3">
+                <div className="w-14 h-14 rounded-2xl bg-[#FFF9EF]/80 p-2 flex items-center justify-center mx-auto border border-[#eddcc4]">
                   <EngineeringLogo className="w-full h-full" />
                 </div>
-                <h3 className="text-base font-bold text-slate-900">
+                <h3 className="text-base font-bold text-[#960112] font-bukra">
                   لم يتم احتساب المعدل بعد
                 </h3>
-                <p className="text-xs text-slate-500 max-w-sm mx-auto leading-relaxed">
+                <p className="text-xs text-[#960112]/80 max-w-sm mx-auto leading-relaxed font-bold">
                   يرجى إدخال المساقات والعلامات أولاً في شاشة الحاسبة والضغط على زر "احسب المعدل" لإصدار كشف التقدير والشهادة المعتمدة من لجنة كلية الهندسة.
                 </p>
                 <div className="pt-2">
                   <button
                     type="button"
                     onClick={() => setActiveTab('calculator')}
-                    className="h-10 px-5 rounded-xl bg-[#960112] text-white text-xs font-bold hover:bg-[#7e010f] transition-colors cursor-pointer"
+                    className="h-10 px-5 rounded-xl bg-[#960112] text-white text-xs font-bold hover:bg-[#7e010f] transition-colors cursor-pointer font-bukra"
                   >
                     الانتقال للحاسبة
                   </button>
@@ -347,8 +338,8 @@ export default function App() {
           <div>
             {/* Quick Result Jump if already calculated */}
             {result && (
-              <div className="mb-4 p-3 bg-white border border-[#EAA313] rounded-xl flex items-center justify-between text-xs shadow-xs no-print">
-                <div className="flex items-center gap-2 text-slate-900 font-bold">
+              <div className="mb-4 p-3 bg-white/60 backdrop-blur-xs border border-[#EAA313] rounded-xl flex items-center justify-between text-xs shadow-xs no-print">
+                <div className="flex items-center gap-2 text-[#960112] font-bold">
                   <FileText className="w-4 h-4 text-[#960112]" />
                   <span>
                     المعدل المحسوب: {result.newCumulativeGpa.toFixed(2)} ({result.newCumulativeStanding})
@@ -357,14 +348,27 @@ export default function App() {
                 <button
                   type="button"
                   onClick={() => setActiveTab('certificate')}
-                  className="font-bold text-[#960112] hover:underline cursor-pointer bg-[#FFF9EF] px-2.5 py-1 rounded-md border border-[#eddcc4]"
+                  className="font-bold text-[#960112] hover:underline cursor-pointer bg-[#FFF9EF]/90 px-2.5 py-1 rounded-md border border-[#eddcc4] font-bukra"
                 >
                   عرض الشهادة
                 </button>
               </div>
             )}
 
-            {/* Section 1: Previous Record */}
+            {/* SECTION 1: Current Semester Courses (مواد الفصل الحالي أولاً) */}
+            <div className="no-print">
+              <SemesterCoursesCard
+                courses={courses}
+                errors={errors}
+                onAddCourse={handleAddCourse}
+                onRemoveCourse={handleRemoveCourse}
+                onUpdateCourse={handleUpdateCourse}
+                onResetCourses={handleResetCourses}
+                totalSemesterHours={totalSemesterHours}
+              />
+            </div>
+
+            {/* SECTION 2: Previous Academic Record (البيانات الأكاديمية والتراكمية ثانياً) */}
             <div className="mb-4 no-print">
               <PreviousRecordCard
                 studentName={studentName}
@@ -398,28 +402,15 @@ export default function App() {
               />
             </div>
 
-            {/* Section 2: Current Semester Courses (Hours 1, 2, 3 only) */}
-            <div className="no-print">
-              <SemesterCoursesCard
-                courses={courses}
-                errors={errors}
-                onAddCourse={handleAddCourse}
-                onRemoveCourse={handleRemoveCourse}
-                onUpdateCourse={handleUpdateCourse}
-                onResetCourses={handleResetCourses}
-                totalSemesterHours={totalSemesterHours}
-              />
-            </div>
-
             {/* Academic Notes */}
-            <div className="bg-white border border-[#eddcc4] rounded-2xl p-3.5 text-xs text-slate-700 space-y-1.5 shadow-xs no-print">
-              <div className="flex items-center gap-1.5 font-bold text-slate-900">
+            <div className="bg-white/40 backdrop-blur-md border border-[#eddcc4]/80 rounded-2xl p-3.5 text-xs text-[#960112] space-y-1.5 shadow-xs no-print font-bold">
+              <div className="flex items-center gap-1.5 font-bold text-[#960112] font-bukra">
                 <Info className="w-4 h-4 text-[#960112]" />
                 <span>تعليمات احتساب المعدل - لجنة كلية الهندسة:</span>
               </div>
-              <ul className="list-disc list-inside space-y-1 text-[11.5px] leading-relaxed text-slate-600 pr-1">
+              <ul className="list-disc list-inside space-y-1 text-[11.5px] leading-relaxed text-[#960112]/85 pr-1 font-bold">
                 <li>
-                  العلامة <span className="font-bold text-slate-800">A+</span> تعادل <strong>4.20 نقطة</strong>، و <span className="font-bold text-slate-800">A</span> تعادل <strong>4.00</strong>.
+                  العلامة A+ تعادل <strong>4.20 نقطة</strong>، و A تعادل <strong>4.00</strong>.
                 </li>
                 <li>
                   الحد الأدنى للمعدل التراكمي للاستمرار دون إنذار أكاديمي هو <strong>2.00 نقطة</strong>.
@@ -429,6 +420,49 @@ export default function App() {
                 </li>
               </ul>
             </div>
+
+            {/* Footer with Made By لجنة كلية الهندسة + Social Links */}
+            <footer className="mt-6 pt-4 border-t border-[#eddcc4]/80 text-center space-y-3 no-print">
+              <div className="flex items-center justify-center gap-2">
+                <div className="w-8 h-8 rounded-xl bg-white/70 backdrop-blur-xs p-0.5 border border-[#eddcc4] shadow-xs flex items-center justify-center">
+                  <EngineeringLogo className="w-full h-full" />
+                </div>
+                <span className="text-xs sm:text-sm font-bold text-[#960112] font-bukra">
+                  Made by لجنة كلية الهندسة
+                </span>
+              </div>
+
+              {/* Social Media Buttons: Facebook & Instagram */}
+              <div className="flex items-center justify-center gap-2.5 pt-1">
+                {/* Facebook Button */}
+                <a
+                  href="https://www.facebook.com/share/1DnY6zHtTC/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white/60 hover:bg-white/80 backdrop-blur-xs text-[#960112] border border-[#eddcc4] shadow-xs active:scale-95 transition-all text-xs font-bold font-bukra"
+                  title="صفحة فيسبوك - لجنة كلية الهندسة"
+                >
+                  <svg className="w-4 h-4 fill-current text-[#1877F2]" viewBox="0 0 24 24">
+                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                  </svg>
+                  <span>Facebook</span>
+                </a>
+
+                {/* Instagram Button */}
+                <a
+                  href="https://www.instagram.com/engineering_committee?stkn=ZHdpMnp4ZXQ5amZu"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white/60 hover:bg-white/80 backdrop-blur-xs text-[#960112] border border-[#eddcc4] shadow-xs active:scale-95 transition-all text-xs font-bold font-bukra"
+                  title="حساب إنستغرام - لجنة كلية الهندسة"
+                >
+                  <svg className="w-4 h-4 fill-current text-[#E4405F]" viewBox="0 0 24 24">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                  </svg>
+                  <span>Instagram</span>
+                </a>
+              </div>
+            </footer>
           </div>
         )}
 
@@ -443,26 +477,26 @@ export default function App() {
         )}
       </main>
 
-      {/* Sticky Bottom Actions Bar (Active on Calculator Tab) with Working Print Button */}
+      {/* Sticky Bottom Actions Bar (Active on Calculator Tab) */}
       {activeTab === 'calculator' && (
-        <div className="fixed bottom-0 left-0 right-0 z-40 bg-[#FFF9EF]/95 backdrop-blur-md border-t border-[#eddcc4] shadow-xl p-3 sm:p-4 no-print">
+        <div className="fixed bottom-0 left-0 right-0 z-40 bg-[#FFF9EF]/85 backdrop-blur-md border-t border-[#eddcc4]/80 shadow-xl p-3 sm:p-4 no-print">
           <div className="max-w-xl mx-auto flex items-center gap-2">
             {/* Primary Action Button: Calculate */}
             <button
               type="button"
               onClick={handleCalculate}
-              className="flex-1 h-12 sm:h-13 rounded-xl bg-gradient-to-r from-[#960112] to-[#b00c21] hover:from-[#7e010f] hover:to-[#960112] active:scale-[0.98] text-white text-sm sm:text-base font-bold flex items-center justify-center gap-2 transition-all cursor-pointer shadow-md shadow-[#960112]/20"
+              className="flex-1 h-12 sm:h-13 rounded-xl bg-gradient-to-r from-[#960112] to-[#b00c21] hover:from-[#7e010f] hover:to-[#960112] active:scale-[0.98] text-white text-sm sm:text-base font-bold flex items-center justify-center gap-2 transition-all cursor-pointer shadow-md shadow-[#960112]/20 font-bukra"
             >
               <Calculator className="w-5 h-5 text-amber-300" />
               <span>احسب المعدل</span>
             </button>
 
-            {/* Print Button Right in the Main Interface (زر الطباعة بالواجهة الأساسية) */}
+            {/* Print Button */}
             <button
               type="button"
               onClick={handlePrint}
               title="طباعة كشف ومعدل الطالب"
-              className="h-12 sm:h-13 px-4 rounded-xl border border-[#eddcc4] bg-white hover:bg-[#FFFDF9] active:scale-95 text-[#960112] text-xs sm:text-sm font-bold flex items-center justify-center gap-1.5 transition-colors cursor-pointer shadow-xs shrink-0"
+              className="h-12 sm:h-13 px-4 rounded-xl border border-[#eddcc4] bg-white/70 hover:bg-white active:scale-95 text-[#960112] text-xs sm:text-sm font-bold flex items-center justify-center gap-1.5 transition-colors cursor-pointer shadow-xs shrink-0 font-bukra"
             >
               <Printer className="w-4 h-4 text-[#960112]" />
               <span>طباعة</span>
@@ -473,9 +507,9 @@ export default function App() {
               type="button"
               onClick={handleFullReset}
               title="تفريغ الحقول ومسح البيانات"
-              className="h-12 sm:h-13 px-3.5 rounded-xl border border-[#eddcc4] bg-white hover:bg-[#FFFDF9] active:scale-95 text-slate-600 text-xs sm:text-sm font-semibold flex items-center justify-center gap-1 transition-colors cursor-pointer shrink-0"
+              className="h-12 sm:h-13 px-3.5 rounded-xl border border-[#eddcc4] bg-white/70 hover:bg-white active:scale-95 text-[#960112]/80 text-xs sm:text-sm font-bold flex items-center justify-center gap-1 transition-colors cursor-pointer shrink-0 font-bukra"
             >
-              <RotateCcw className="w-4 h-4 text-slate-500" />
+              <RotateCcw className="w-4 h-4 text-[#960112]" />
               <span>تفريغ</span>
             </button>
           </div>
@@ -494,20 +528,6 @@ export default function App() {
           isFreshman={isFreshman}
         />
       )}
-
-      {/* Grade Scale Modal */}
-      <GradeScaleModal
-        isOpen={showGradeScaleModal}
-        onClose={() => setShowGradeScaleModal(false)}
-      />
-
-      {/* Target GPA Planner Modal */}
-      <TargetGpaModal
-        isOpen={showTargetModal}
-        onClose={() => setShowTargetModal(false)}
-        defaultCurrentGpa={previousGpa}
-        defaultCompletedHours={previousHours}
-      />
     </div>
   );
 }

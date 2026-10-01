@@ -1,8 +1,8 @@
 import React from 'react';
-import { Calculator, Award, Target, FileText, Printer } from 'lucide-react';
+import { Calculator, FileText, Printer } from 'lucide-react';
 import { EngineeringLogo } from './EngineeringLogo';
 
-export type ActiveTab = 'calculator' | 'certificate' | 'gradeScale' | 'targetPlanner';
+export type ActiveTab = 'calculator' | 'certificate';
 
 interface HeaderProps {
   activeTab: ActiveTab;
@@ -30,14 +30,14 @@ export const Header: React.FC<HeaderProps> = ({
 
             <div>
               <div className="flex items-center gap-1.5">
-                <h1 className="text-base sm:text-lg font-black text-white tracking-tight leading-tight drop-shadow-xs">
+                <h1 className="text-base sm:text-lg font-black text-white font-bukra tracking-tight leading-tight drop-shadow-xs">
                   حاسبة المعدل
                 </h1>
-                <span className="text-[10px] font-bold bg-white/20 text-amber-200 px-2 py-0.5 rounded-full border border-white/20 backdrop-blur-xs">
-                  4.20
+                <span className="text-[10px] font-bold bg-white/20 text-amber-200 px-2 py-0.5 rounded-full border border-white/20 backdrop-blur-xs font-sans">
+                  نظام 4.20
                 </span>
               </div>
-              <p className="text-[12.5px] text-amber-200 font-bold tracking-wide drop-shadow-xs">
+              <p className="text-[12.5px] text-amber-200 font-bold tracking-wide drop-shadow-xs font-bukra">
                 لجنة كلية الهندسة
               </p>
             </div>
@@ -58,61 +58,35 @@ export const Header: React.FC<HeaderProps> = ({
           )}
         </div>
 
-        {/* Navigation Tabs Bar with Frosted Glass Aesthetics */}
-        <nav className="flex items-center gap-1 bg-black/20 backdrop-blur-sm p-1 rounded-xl text-xs font-semibold overflow-x-auto scrollbar-none border border-white/10">
+        {/* Navigation Tabs Bar - Only Calculator and Certificate */}
+        <nav className="flex items-center gap-1.5 bg-black/20 backdrop-blur-sm p-1 rounded-xl text-xs font-bold overflow-x-auto scrollbar-none border border-white/10">
           <button
             type="button"
             onClick={() => onChangeTab('calculator')}
-            className={`flex-1 min-w-[70px] py-2 px-2.5 rounded-lg flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
+            className={`flex-1 py-2 px-3 rounded-lg flex items-center justify-center gap-1.5 transition-all cursor-pointer font-bukra ${
               activeTab === 'calculator'
                 ? 'bg-[#FFF9EF] text-[#960112] shadow-sm font-bold'
                 : 'text-amber-100 hover:text-white bg-white/5 hover:bg-white/15'
             }`}
           >
-            <Calculator className="w-3.5 h-3.5" />
-            <span>الحاسبة</span>
+            <Calculator className="w-4 h-4" />
+            <span>حاسبة المساقات</span>
           </button>
 
           <button
             type="button"
             onClick={() => onChangeTab('certificate')}
-            className={`flex-1 min-w-[85px] py-2 px-2.5 rounded-lg flex items-center justify-center gap-1.5 transition-all cursor-pointer relative ${
+            className={`flex-1 py-2 px-3 rounded-lg flex items-center justify-center gap-1.5 transition-all cursor-pointer relative font-bukra ${
               activeTab === 'certificate'
                 ? 'bg-amber-400 text-[#960112] shadow-sm font-bold'
                 : 'text-amber-100 hover:text-white bg-white/5 hover:bg-white/15'
             }`}
           >
-            <FileText className="w-3.5 h-3.5" />
-            <span>الشهادة</span>
+            <FileText className="w-4 h-4" />
+            <span>كشف وشهادة المعدل</span>
             {hasResult && activeTab !== 'certificate' && (
-              <span className="w-2 h-2 rounded-full bg-amber-300 animate-pulse" />
+              <span className="w-2.5 h-2.5 rounded-full bg-amber-300 animate-pulse" />
             )}
-          </button>
-
-          <button
-            type="button"
-            onClick={() => onChangeTab('gradeScale')}
-            className={`flex-1 min-w-[80px] py-2 px-2.5 rounded-lg flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
-              activeTab === 'gradeScale'
-                ? 'bg-[#FFF9EF] text-[#960112] shadow-sm font-bold'
-                : 'text-amber-100 hover:text-white bg-white/5 hover:bg-white/15'
-            }`}
-          >
-            <Award className="w-3.5 h-3.5" />
-            <span>سلم النقاط</span>
-          </button>
-
-          <button
-            type="button"
-            onClick={() => onChangeTab('targetPlanner')}
-            className={`flex-1 min-w-[85px] py-2 px-2.5 rounded-lg flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
-              activeTab === 'targetPlanner'
-                ? 'bg-[#FFF9EF] text-[#960112] shadow-sm font-bold'
-                : 'text-amber-100 hover:text-white bg-white/5 hover:bg-white/15'
-            }`}
-          >
-            <Target className="w-3.5 h-3.5" />
-            <span>هدف المعدل</span>
           </button>
         </nav>
       </div>

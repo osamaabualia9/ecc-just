@@ -111,7 +111,7 @@ export const CertificateCard: React.FC<CertificateCardProps> = ({
 
       // Header Text: "لجنة كلية الهندسة"
       ctx.fillStyle = '#960112';
-      ctx.font = '900 32px Cairo, sans-serif';
+      ctx.font = '900 34px Tajawal, sans-serif';
       ctx.fillText('لجنة كلية الهندسة', width / 2, 195);
 
       // Divider Line
@@ -124,22 +124,22 @@ export const CertificateCard: React.FC<CertificateCardProps> = ({
 
       // Certificate Title
       ctx.fillStyle = '#960112';
-      ctx.font = 'bold 28px Cairo, sans-serif';
+      ctx.font = 'bold 28px Tajawal, sans-serif';
       ctx.fillText('كشف تقدير ومعدل الطالب', width / 2, 265);
 
       // Statement Text
-      ctx.fillStyle = '#475569';
-      ctx.font = '600 19px Cairo, sans-serif';
+      ctx.fillStyle = '#960112';
+      ctx.font = 'bold 19px Tajawal, sans-serif';
       ctx.fillText('يُفيد هذا الكشف الصادر عن لجنة كلية الهندسة بأن الطالب / الطالبة:', width / 2, 310);
 
       // Student Name Box
       const studentName = result.studentName || 'طالب كلية الهندسة';
       ctx.fillStyle = '#960112';
-      ctx.font = '900 34px Cairo, sans-serif';
+      ctx.font = '900 34px Tajawal, sans-serif';
       ctx.fillText(studentName, width / 2, 355);
 
-      ctx.fillStyle = '#64748B';
-      ctx.font = '500 16px Cairo, sans-serif';
+      ctx.fillStyle = '#960112';
+      ctx.font = 'bold 16px Tajawal, sans-serif';
       ctx.fillText(
         'قد أنجز احتساب المعدل وفقاً لنظام النقاط المعتمد (من 4.20 نقطة):',
         width / 2,
@@ -163,16 +163,16 @@ export const CertificateCard: React.FC<CertificateCardProps> = ({
       ctx.fill();
       ctx.stroke();
 
-      ctx.fillStyle = '#64748B';
-      ctx.font = '600 16px Cairo, sans-serif';
+      ctx.fillStyle = '#960112';
+      ctx.font = 'bold 16px Tajawal, sans-serif';
       ctx.fillText('المعدل الفصلي', rightBoxX + boxWidth / 2, boxY + 30);
 
       ctx.fillStyle = '#960112';
-      ctx.font = 'bold 44px Cairo, sans-serif';
+      ctx.font = '900 44px Tajawal, sans-serif';
       ctx.fillText(result.semesterGpa.toFixed(2), rightBoxX + boxWidth / 2, boxY + 76);
 
-      ctx.fillStyle = '#0F766E';
-      ctx.font = 'bold 15px Cairo, sans-serif';
+      ctx.fillStyle = '#960112';
+      ctx.font = 'bold 15px Tajawal, sans-serif';
       ctx.fillText(
         `التقدير: ${result.semesterStanding} (${result.semesterHours} ساعات)`,
         rightBoxX + boxWidth / 2,
@@ -189,15 +189,15 @@ export const CertificateCard: React.FC<CertificateCardProps> = ({
       ctx.stroke();
 
       ctx.fillStyle = '#960112';
-      ctx.font = '600 16px Cairo, sans-serif';
+      ctx.font = 'bold 16px Tajawal, sans-serif';
       ctx.fillText('المعدل التراكمي العام', leftBoxX + boxWidth / 2, boxY + 30);
 
       ctx.fillStyle = '#960112';
-      ctx.font = 'bold 44px Cairo, sans-serif';
+      ctx.font = '900 44px Tajawal, sans-serif';
       ctx.fillText(result.newCumulativeGpa.toFixed(2), leftBoxX + boxWidth / 2, boxY + 76);
 
       ctx.fillStyle = '#B45309';
-      ctx.font = 'bold 15px Cairo, sans-serif';
+      ctx.font = 'bold 15px Tajawal, sans-serif';
       ctx.fillText(
         `التقدير: ${result.newCumulativeStanding} (${result.totalCumulativeHours} ساعة إجمالية)`,
         leftBoxX + boxWidth / 2,
@@ -205,8 +205,8 @@ export const CertificateCard: React.FC<CertificateCardProps> = ({
       );
 
       // Evaluation Remark
-      ctx.fillStyle = '#334155';
-      ctx.font = '500 16px Cairo, sans-serif';
+      ctx.fillStyle = '#960112';
+      ctx.font = 'bold 16px Tajawal, sans-serif';
       ctx.fillText(result.academicRemark, width / 2, 595);
 
       // Divider before footer
@@ -217,36 +217,12 @@ export const CertificateCard: React.FC<CertificateCardProps> = ({
       ctx.lineTo(width - 120, 630);
       ctx.stroke();
 
-      // Engineering Committee Verification Stamp
-      const sealX = 220;
-      const sealY = 715;
-      ctx.strokeStyle = '#960112';
-      ctx.lineWidth = 2.5;
-      ctx.beginPath();
-      ctx.arc(sealX, sealY, 46, 0, Math.PI * 2);
-      ctx.stroke();
-
-      ctx.strokeStyle = '#EAA313';
-      ctx.lineWidth = 1.5;
-      ctx.beginPath();
-      ctx.arc(sealX, sealY, 40, 0, Math.PI * 2);
-      ctx.stroke();
-
+      // Footer Information (Clean without stamp or reference number)
+      ctx.textAlign = 'center';
       ctx.fillStyle = '#960112';
-      ctx.font = 'bold 11px Cairo, sans-serif';
-      ctx.fillText('لجنة كلية الهندسة', sealX, sealY - 14);
-      ctx.font = 'bold 13px Cairo, sans-serif';
-      ctx.fillText('معتمد رسمياً', sealX, sealY + 6);
-      ctx.font = 'bold 10px Cairo, sans-serif';
-      ctx.fillText('ENGINEERING COMMITTEE', sealX, sealY + 22);
-
-      // Footer Information
-      ctx.textAlign = 'right';
-      ctx.fillStyle = '#64748B';
-      ctx.font = '500 15px Cairo, sans-serif';
-      ctx.fillText(`تاريخ الإصدار: ${result.formattedDate}`, width - 120, 685);
-      ctx.fillText(`الرقم المرجعي: ${result.certificateId}`, width - 120, 715);
-      ctx.fillText('صادر عن: لجنة كلية الهندسة', width - 120, 745);
+      ctx.font = 'bold 16px Tajawal, sans-serif';
+      ctx.fillText(`تاريخ الإصدار: ${result.formattedDate}`, width / 2, 690);
+      ctx.fillText('صادر عن: لجنة كلية الهندسة', width / 2, 725);
 
       // Trigger Download
       const dataUrl = canvas.toDataURL('image/png');
@@ -261,18 +237,18 @@ export const CertificateCard: React.FC<CertificateCardProps> = ({
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-xs border border-[#eddcc4] overflow-hidden mb-5">
-      {/* Dedicated Download Certificate Banner (خانة تحميل الشهادة) */}
+    <div className="bg-white/85 backdrop-blur-md rounded-2xl shadow-xs border border-[#eddcc4] overflow-hidden mb-5">
+      {/* Dedicated Download Certificate Banner */}
       <div className="bg-[#FFF9EF] border-b border-[#eddcc4] p-4 text-center sm:text-right flex flex-col sm:flex-row items-center justify-between gap-3 no-print">
         <div className="flex items-center gap-2.5">
           <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#960112] to-[#b30b20] text-amber-300 flex items-center justify-center shrink-0 shadow-xs">
             <ImageIcon className="w-5 h-5" />
           </div>
           <div>
-            <h3 className="text-sm font-bold text-[#960112]">
+            <h3 className="text-sm font-bold text-[#960112] font-bukra">
               خانة تحميل كشف وشهادة المعدل
             </h3>
-            <p className="text-[11.5px] text-slate-600">
+            <p className="text-[11.5px] text-[#960112]/80 font-bold">
               يمكنك تصدير الشهادة كصورة كاملة (PNG) بجودة عالية للمشاركة أو الطباعة
             </p>
           </div>
@@ -284,7 +260,7 @@ export const CertificateCard: React.FC<CertificateCardProps> = ({
             type="button"
             onClick={handleDownloadImage}
             disabled={isDownloading}
-            className="flex-1 sm:flex-initial h-11 px-4 rounded-xl bg-[#960112] hover:bg-[#7e010f] active:scale-95 text-white text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition-all cursor-pointer shadow-md shadow-[#960112]/20"
+            className="flex-1 sm:flex-initial h-11 px-4 rounded-xl bg-[#960112] hover:bg-[#7e010f] active:scale-95 text-white text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition-all cursor-pointer shadow-md shadow-[#960112]/20 font-bukra"
           >
             <Download className="w-4 h-4 text-amber-300" />
             <span>{isDownloading ? 'جاري تجهيز الصورة...' : 'تحميل الشهادة (PNG)'}</span>
@@ -293,7 +269,7 @@ export const CertificateCard: React.FC<CertificateCardProps> = ({
           <button
             type="button"
             onClick={handlePrint}
-            className="h-11 px-3.5 rounded-xl border border-[#eddcc4] bg-white hover:bg-[#FFF9EF] text-slate-800 font-bold text-xs flex items-center gap-1.5 transition-colors cursor-pointer shadow-xs"
+            className="h-11 px-3.5 rounded-xl border border-[#eddcc4] bg-white hover:bg-[#FFF9EF] text-[#960112] font-bold text-xs flex items-center gap-1.5 transition-colors cursor-pointer shadow-xs font-bukra"
             title="طباعة الشهادة مباشرة"
           >
             <Printer className="w-4 h-4 text-[#960112]" />
@@ -306,7 +282,7 @@ export const CertificateCard: React.FC<CertificateCardProps> = ({
       <div className="bg-white px-4 py-3 border-b border-[#eddcc4] flex flex-wrap items-center justify-between gap-2.5 text-xs no-print">
         {/* Student Name */}
         <div className="flex items-center gap-2">
-          <span className="font-semibold text-slate-700">اسم الطالب:</span>
+          <span className="font-bold text-[#960112]">اسم الطالب:</span>
           {isEditingName ? (
             <div className="flex items-center gap-1.5">
               <input
@@ -314,13 +290,13 @@ export const CertificateCard: React.FC<CertificateCardProps> = ({
                 value={nameInput}
                 onChange={(e) => setNameInput(e.target.value)}
                 placeholder="أدخل اسمك"
-                className="h-8 px-2.5 rounded-md border border-[#eddcc4] text-xs font-bold text-slate-800 bg-[#FFF9EF] focus:outline-none focus:border-[#960112]"
+                className="h-8 px-2.5 rounded-md border border-[#eddcc4] text-xs font-bold text-[#960112] bg-[#FFF9EF] focus:outline-none focus:border-[#960112]"
                 autoFocus
               />
               <button
                 type="button"
                 onClick={handleSaveName}
-                className="h-8 px-2.5 rounded-md bg-[#960112] text-white text-[11px] font-bold cursor-pointer"
+                className="h-8 px-2.5 rounded-md bg-[#960112] text-white text-[11px] font-bold cursor-pointer font-bukra"
               >
                 حفظ
               </button>
@@ -348,7 +324,7 @@ export const CertificateCard: React.FC<CertificateCardProps> = ({
           <button
             type="button"
             onClick={handleCopy}
-            className="h-9 px-3 rounded-lg border border-[#eddcc4] bg-[#FFF9EF] hover:bg-white text-slate-700 font-bold text-xs flex items-center gap-1.5 cursor-pointer"
+            className="h-9 px-3 rounded-lg border border-[#eddcc4] bg-[#FFF9EF] hover:bg-white text-[#960112] font-bold text-xs flex items-center gap-1.5 cursor-pointer font-bukra"
           >
             {copied ? (
               <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
@@ -367,7 +343,7 @@ export const CertificateCard: React.FC<CertificateCardProps> = ({
           <div className="absolute inset-2 border-2 border-[#EAA313]/60 rounded-xl pointer-events-none" />
 
           {/* Faint Logo Watermark behind certificate */}
-          <div className="absolute inset-0 flex items-center justify-center opacity-[0.06] pointer-events-none select-none">
+          <div className="absolute inset-0 flex items-center justify-center opacity-[0.08] pointer-events-none select-none">
             <div className="w-64 h-64">
               <EngineeringLogo className="w-full h-full" showText={false} />
             </div>
@@ -380,25 +356,25 @@ export const CertificateCard: React.FC<CertificateCardProps> = ({
               <div className="w-16 h-16 bg-[#FFF9EF] rounded-xl p-1.5 shadow-xs border border-[#eddcc4] mb-1">
                 <EngineeringLogo className="w-full h-full" />
               </div>
-              <h2 className="text-xl sm:text-2xl font-black text-[#960112]">
+              <h2 className="text-xl sm:text-2xl font-black text-[#960112] font-bukra">
                 لجنة كلية الهندسة
               </h2>
             </div>
 
             {/* Document Title */}
             <div>
-              <h1 className="text-base sm:text-lg font-black text-[#960112] tracking-tight">
+              <h1 className="text-base sm:text-lg font-black text-[#960112] tracking-tight font-bukra">
                 كشف تقدير ومعدل الطالب
               </h1>
-              <p className="text-[11px] text-slate-500 mt-1">
+              <p className="text-[11px] text-[#960112]/80 mt-1 font-bold">
                 صادر وفق نظام احتساب النقاط المعتمد (من 4.20)
               </p>
             </div>
 
             {/* Student Endorsement */}
             <div className="py-1">
-              <p className="text-xs text-slate-600 mb-1">يُفيد هذا الكشف بأن الطالب / الطالبة:</p>
-              <div className="inline-block text-base sm:text-lg font-bold text-[#960112] border-b-2 border-[#EAA313] px-4 pb-0.5">
+              <p className="text-xs text-[#960112] mb-1 font-bold">يُفيد هذا الكشف بأن الطالب / الطالبة:</p>
+              <div className="inline-block text-base sm:text-lg font-black text-[#960112] border-b-2 border-[#EAA313] px-4 pb-0.5 font-bukra">
                 {result.studentName || 'طالب كلية الهندسة'}
               </div>
             </div>
@@ -407,67 +383,55 @@ export const CertificateCard: React.FC<CertificateCardProps> = ({
             <div className="grid grid-cols-2 gap-3 pt-2 text-right">
               {/* Semester GPA Box */}
               <div className="bg-white border border-[#eddcc4] rounded-xl p-3.5 text-center shadow-xs">
-                <span className="text-[11px] font-semibold text-slate-600 block mb-0.5">
+                <span className="text-[11px] font-bold text-[#960112] block mb-0.5">
                   المعدل الفصلي
                 </span>
-                <span className="text-2xl sm:text-3xl font-black text-[#960112] tabular-nums">
+                <span className="text-2xl sm:text-3xl font-black text-[#960112] tabular-nums font-bukra">
                   {result.semesterGpa.toFixed(2)}
                 </span>
-                <span className="text-[10px] text-slate-400 block mb-1">من 4.20</span>
-                <div className="text-[11px] font-bold text-slate-800 bg-[#FFF9EF] border border-[#eddcc4] rounded-md py-0.5 px-2 inline-block">
+                <span className="text-[10px] text-[#960112]/60 block mb-1 font-bold">من 4.20</span>
+                <div className="text-[11px] font-bold text-[#960112] bg-[#FFF9EF] border border-[#eddcc4] rounded-md py-0.5 px-2 inline-block">
                   التقدير: {result.semesterStanding}
                 </div>
-                <p className="text-[10px] text-slate-500 mt-1">
+                <p className="text-[10px] text-[#960112]/80 mt-1 font-bold">
                   {result.semesterHours} ساعات معتمدة
                 </p>
               </div>
 
               {/* Cumulative GPA Box */}
               <div className="bg-white border-2 border-[#EAA313] rounded-xl p-3.5 text-center shadow-xs">
-                <span className="text-[11px] font-bold text-[#960112] block mb-0.5">
+                <span className="text-[11px] font-black text-[#960112] block mb-0.5">
                   المعدل التراكمي العام
                 </span>
-                <span className="text-2xl sm:text-3xl font-black text-[#960112] tabular-nums">
+                <span className="text-2xl sm:text-3xl font-black text-[#960112] tabular-nums font-bukra">
                   {result.newCumulativeGpa.toFixed(2)}
                 </span>
-                <span className="text-[10px] text-amber-700 block mb-1">من 4.20</span>
+                <span className="text-[10px] text-[#EAA313] block mb-1 font-bold">من 4.20</span>
                 <div className="text-[11px] font-bold text-[#960112] bg-[#FFF9EF] border border-[#eddcc4] rounded-md py-0.5 px-2 inline-block">
                   التقدير: {result.newCumulativeStanding}
                 </div>
-                <p className="text-[10px] text-slate-600 mt-1">
+                <p className="text-[10px] text-[#960112]/80 mt-1 font-bold">
                   {result.totalCumulativeHours} ساعة تراكمية
                 </p>
               </div>
             </div>
 
             {/* Academic Remark Statement */}
-            <div className="bg-white border border-[#eddcc4] rounded-xl p-3 text-xs text-slate-700 leading-relaxed text-right flex items-start gap-2">
+            <div className="bg-white border border-[#eddcc4] rounded-xl p-3 text-xs text-[#960112] leading-relaxed text-right flex items-start gap-2 font-bold">
               <ShieldCheck className="w-4 h-4 text-[#960112] shrink-0 mt-0.5" />
               <div>
-                <span className="font-bold text-slate-900 block mb-0.5">التقييم الأكاديمي:</span>
+                <span className="font-black text-[#960112] block mb-0.5 font-bukra">التقييم الأكاديمي:</span>
                 <span>{result.academicRemark}</span>
               </div>
             </div>
 
-            {/* Certificate Footer with Verification Seal */}
-            <div className="pt-3 border-t border-[#eddcc4] flex items-center justify-between text-right text-[11px] text-slate-500">
-              <div className="space-y-0.5">
-                <p>
-                  تاريخ الحساب:{' '}
-                  <span className="font-semibold text-slate-700">{result.formattedDate}</span>
-                </p>
-                <p>
-                  الرقم المرجعي:{' '}
-                  <span className="font-mono text-slate-700">{result.certificateId}</span>
-                </p>
-              </div>
-
-              {/* Engineering Committee Stamp */}
-              <div className="w-16 h-16 rounded-full border-2 border-[#960112] flex flex-col items-center justify-center p-1 text-[8px] font-bold text-[#960112] rotate-[-5deg] bg-white shadow-xs">
-                <span>كلية الهندسة</span>
-                <span className="text-[9px] text-[#EAA313]">معتمد</span>
-                <span className="text-[7px] text-slate-400">ENG COMM</span>
-              </div>
+            {/* Certificate Footer without Stamp or Reference Number */}
+            <div className="pt-3 border-t border-[#eddcc4] flex flex-col sm:flex-row items-center justify-between gap-1 text-[11px] text-[#960112] font-bold">
+              <p>
+                تاريخ الإصدار:{' '}
+                <span className="font-bold text-[#960112]">{result.formattedDate}</span>
+              </p>
+              <p>صادر عن: لجنة كلية الهندسة</p>
             </div>
           </div>
         </div>

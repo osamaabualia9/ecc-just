@@ -230,8 +230,7 @@ export function formatResultShareText(result: CalculationResult): string {
 
   lines.push('----------------------------------------');
   lines.push(`التاريخ: ${result.formattedDate}`);
-  lines.push(`الرقم المرجعي: ${result.certificateId}`);
-  lines.push('تم الاحتساب عبر: حاسبة المعدل لجامعة العلوم والتكنولوجيا - لجنة كلية الهندسة');
+  lines.push('صادر عن: لجنة كلية الهندسة');
 
   return lines.join('\n');
 }
